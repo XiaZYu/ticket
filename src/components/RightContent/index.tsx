@@ -10,7 +10,6 @@ export const SelectLang = () => {
       style={{
         padding: 4,
       }}
-      dd
     />
   );
 };

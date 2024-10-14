@@ -34,10 +34,16 @@ export default [
     component: './Welcome',
   },
   {
-    path: '/userlist',
+    path: '/users',
     name: '用户管理',
     icon: 'smile',
     component: './UserList'
+  },
+  {
+    path: '/films',
+    name: '电影管理',
+    icon: 'smile',
+    component: './FilmList'
   },
   {
     path: '/admin',
@@ -55,12 +61,6 @@ export default [
         component: './Admin',
       },
     ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
   },
   {
     path: '/',

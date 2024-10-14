@@ -1,5 +1,4 @@
 import {Footer} from '@/components';
-import {login} from '@/services/ant-design-pro/api';
 import {
   LockOutlined, PhoneOutlined,
   UserOutlined, TeamOutlined,
@@ -13,7 +12,7 @@ import {history, Helmet} from '@umijs/max';
 import {Alert, message} from 'antd';
 import React, {useState} from 'react';
 import {createStyles} from 'antd-style';
-import {ProForm, ProFormDigit} from "@ant-design/pro-form/lib";
+import {ProForm, ProFormDigit} from "@ant-design/pro-components";
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -57,17 +56,17 @@ const Register: React.FC = () => {
   const {styles} = useStyles();
 
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: UserInfo) => {
     try {
-      // 登录
-      const msg = await login({...values});
-      if (msg.status === 'ok') {
-        message.success('登录成功！');
-        const urlParams = new URL(window.location.href).searchParams;
-        history.push(urlParams.get('redirect') || '/');
-        return;
-      }
-      setUserResisterState(msg);
+      // // 登录
+      // const msg = await login({...values});
+      // if (msg.status === 'ok') {
+      //   message.success('登录成功！');
+      //   const urlParams = new URL(window.location.href).searchParams;
+      //   history.push(urlParams.get('redirect') || '/');
+      //   return;
+      // }
+      // setUserResisterState(msg);
     } catch (error) {
       message.error('登录失败，请重试！');
     }

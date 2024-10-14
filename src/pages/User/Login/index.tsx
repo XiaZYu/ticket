@@ -1,6 +1,4 @@
 import { Footer } from '@/components';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   LockOutlined,
   MobileOutlined,
@@ -12,13 +10,19 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, SelectLang, useModel, Helmet } from '@umijs/max';
+import { history, useModel, Helmet } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { createStyles } from 'antd-style';
 import {ResponseStructure} from "@/requestErrorConfig";
 import Cookies from "js-cookie";
+import { login } from '@/services/auth';
+
+type LoginParams = {
+  nickname: string;
+  password: string;
+};
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -56,17 +60,6 @@ const useStyles = createStyles(({ token }) => {
   } as any;
 });
 
-
-const Lang = () => {
-  const { styles } = useStyles();
-
-  return (
-    <div className={styles.lang} data-lang>
-      {SelectLang && <SelectLang />}
-    </div>
-  );
-};
-
 const LoginMessage: React.FC<{
   content: string;
 }> = ({ content }) => {
@@ -100,10 +93,13 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (values: API.LoginParams) => {
+  const handleSubmit = async (values: {
+    nickname: string;
+    password: string;
+  }) => {
     try {
       // 登录
-      const res = await login({ ...values, type });
+      const res = await login({ ...values });
       if (res.code === 200) {
         message.success('登录成功！');
         //获取token存到cookie
@@ -130,7 +126,7 @@ const Login: React.FC = () => {
           {"登录"}
         </title>
       </Helmet>
-      <Lang />
+      {/* <Lang /> */}
       <div
         style={{
           flex: '1',
@@ -148,7 +144,7 @@ const Login: React.FC = () => {
           }}
 
           onFinish={async (values) => {
-            await handleSubmit(values as API.LoginParams);
+            await handleSubmit(values as LoginParams);
           }}
 
         >
@@ -250,12 +246,12 @@ const Login: React.FC = () => {
                   },
                 ]}
                 onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-                  if (!result) {
-                    return;
-                  }
+                  // const result = await getFakeCaptcha({
+                  //   phone,
+                  // });
+                  // if (!result) {
+                  //   return;
+                  // }
                   message.success('获取验证码成功！验证码为：1234');
                 }}
               />

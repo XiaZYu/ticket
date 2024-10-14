@@ -1,6 +1,6 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 import Cookies from "js-cookie";
 
 // 错误处理方案： 错误类型
@@ -31,7 +31,7 @@ export const errorConfig: RequestConfig = {
       const { code, message, data } =
         res as unknown as ResponseStructure;
       if (code!==200) {
-        const error: any = new Error(errorMessage);
+        const error: any = new Error(message);
         error.name = 'BizError';
         error.info = {code, message, data };
         throw error; // 抛出自制的错误
@@ -68,14 +68,13 @@ export const errorConfig: RequestConfig = {
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
       const url = config?.url;
-      const oldHeader = config?.headers ?? {};
+      const headers = config?.headers ?? {};
 
       //cookie里面获取token
       const token = Cookies.get("token")
 
-      const headers = {
-        ...oldHeader,
-        "Authorization" : token
+      if (token) {
+        headers.Authorization = `${token}`
       }
 
       config.headers = headers
