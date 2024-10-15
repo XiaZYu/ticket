@@ -70,7 +70,7 @@ export default {
   'GET /api/users/list':async (req :Request, res: Response,u :string) =>{
     const {current = 1, pageSize = 10, name = "", nickname= "", phone= ""} = req.query
     const data = Mock.mock({
-      'data|10': [
+      'list|10': [
         {
           'uid|+1': 1,
           name: '@cname',
@@ -81,7 +81,7 @@ export default {
           'gender|1': ['男', '女'],
         },
       ],
-    }).data;
+    }).list;
 
 
     res.send({
@@ -91,7 +91,7 @@ export default {
         count: 100,
         current: Number(current) || 1,
         pageSize: Number(pageSize) || 10,
-        users: data,
+        list: data,
       }
     });
   }
@@ -130,6 +130,16 @@ export default {
       code: 400,
       message: '用户名或密码错误',
       data: {}
+    });
+  },
+  // 用户登录
+  'POST /api/users/register': async (req: Request, res: Response) => {
+    await waitTime(2000);
+   
+    res.send({
+      code: 200,
+      message: '注册成功',
+      data: null
     });
   },
   // 新增用户

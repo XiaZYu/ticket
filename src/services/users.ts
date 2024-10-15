@@ -1,4 +1,5 @@
 
+import { UserInfo } from '@/types/user';
 import { request } from '@umijs/max';
 
 /** 获取用户列表 GET /api/users/list */
@@ -11,7 +12,7 @@ export async function getUsersList(
     phone?: string;
   },
   options?: { [key: string]: any },
-) {
+): Promise<API.ResponsePageData<UserInfo>> {
   return request('/api/users/list', {
     method: 'GET',
     params: {

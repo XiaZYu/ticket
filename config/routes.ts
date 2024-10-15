@@ -50,6 +50,14 @@ export default [
     component: './Admin/FilmList'
   },
   {
+    path: '/trade',
+    name: '订单列表',
+    icon: 'smile',
+    hideInMenu: true,
+    access: 'canUser',
+    component: './Trade'
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

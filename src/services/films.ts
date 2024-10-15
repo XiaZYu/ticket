@@ -11,7 +11,7 @@ export async function getFilmList(
     filmName?:string;
   },
   options?: { [key: string]: any },
-) {
+) : Promise<API.ResponsePageData<FilmInfo>> {
   return request('/api/films/list', {
     method: 'GET',
     params: {

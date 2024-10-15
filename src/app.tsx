@@ -50,12 +50,12 @@ export async function getInitialState(): Promise<{
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: ({initialState, setInitialState}: { initialState: any; setInitialState: any }) => any = ({ initialState }) => {
-  const currentUser = initialState?.currentUser;
+  const currentUser = initialState?.currentUser || {};
 
 
-  const layout = currentUser.role === 'admin' ? 'mix' : 'top';
-  const contentWidth = currentUser.role === 'admin' ? 'Fluid' : 'Fixed';
-  const title = currentUser.role === 'admin' ? '电影管理系统' : '购票平台';
+  const layout = currentUser?.role === 'admin' ? 'mix' : 'top';
+  const contentWidth = currentUser?.role === 'admin' ? 'Fluid' : 'Fixed';
+  const title = currentUser?.role === 'admin' ? '电影管理系统' : '购票平台';
 
   const settings = {
     ...initialState?.settings,
@@ -70,7 +70,7 @@ export const layout: ({initialState, setInitialState}: { initialState: any; setI
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,
       render: (_: any, avatarChildren: React.ReactNode) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
+        return <AvatarDropdown menu={currentUser.role === "user"}>{avatarChildren}</AvatarDropdown>;
       },
     },
     waterMarkProps: {

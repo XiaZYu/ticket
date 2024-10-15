@@ -107,7 +107,7 @@ const UserList = () => {
           const res = await getUsersList(params);
           return {
             success: res.code === 200,
-            data: res.data?.users ?? [],
+            data: res.data?.list ?? [],
             total: res.data?.count ?? 0,
           };
         }}
