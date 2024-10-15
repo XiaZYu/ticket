@@ -132,16 +132,6 @@ export default {
       data: {}
     });
   },
-  // 用户登录
-  'POST /api/users/register': async (req: Request, res: Response) => {
-    await waitTime(2000);
-   
-    res.send({
-      code: 200,
-      message: '注册成功',
-      data: null
-    });
-  },
   // 新增用户
   'POST /api/users/add': async (req: Request, res: Response) => {
     const { name, nickname, phone, email, age } = req.body;

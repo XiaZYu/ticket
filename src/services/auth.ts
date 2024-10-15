@@ -34,18 +34,3 @@ export async function login(body: {
   });
 }
 
-/** 注册接口 POST /api/login/register */
-export async function register(body: {
-  nickname: string;
-  password: string;
-}, options?: { [key: string]: any }) : Promise<API.ResponseData<UserInfo>> {
-  return request<API.ResponseData<UserInfo>>('/api/users/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
-    ...(options || {}),
-  });
-}
-

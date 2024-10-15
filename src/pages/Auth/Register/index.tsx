@@ -12,10 +12,11 @@ import {
 } from '@ant-design/pro-components';
 import {history, Helmet, Link} from '@umijs/max';
 import {message} from 'antd';
-import React, {useState} from 'react';
+import React from 'react';
 import {createStyles} from 'antd-style';
 import {ProForm, ProFormDigit} from "@ant-design/pro-components";
 import { UserInfo } from '@/types/user';
+import { addUser } from '@/services/users';
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -55,23 +56,20 @@ const useStyles = createStyles(({token}) => {
 
 
 const Register: React.FC = () => {
-  const [userResisterState, setUserResisterState] = useState<API.LoginResult>({});
   const {styles} = useStyles();
 
 
   const handleSubmit = async (values: UserInfo) => {
     try {
       // // 登录
-      // const msg = await login({...values});
-      // if (msg.status === 'ok') {
-      //   message.success('登录成功！');
-      //   const urlParams = new URL(window.location.href).searchParams;
-      //   history.push(urlParams.get('redirect') || '/');
-      //   return;
-      // }
-      // setUserResisterState(msg);
+      const res = await addUser({...values});
+      if (res.code === 200) {
+        message.success('注册成功！');
+        history.push('/user/login');
+        return;
+      }
     } catch (error) {
-      message.error('登录失败，请重试！');
+      message.error('注册失败，请重试！');
     }
   };
 
@@ -98,9 +96,7 @@ const Register: React.FC = () => {
           }
         >
           <ProForm
-            onFinish={async (values) => {
-              await handleSubmit(values);
-            }}
+            onFinish={handleSubmit}
             submitter={{
               searchConfig: {
                 submitText: '注册',
