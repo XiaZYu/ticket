@@ -10,21 +10,6 @@ const waitTime = (time: number = 100) => {
 };
 
 
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
-
-/**
- * 当前用户的权限，如果为空代表没登录
- * current user access， if is '', user need login
- * 如果是 pro 的预览，默认是有权限的
- */
-let access = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
-
-const getAccess = () => {
-  return access;
-};
-
-
-
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 获取当前用户
@@ -39,18 +24,47 @@ export default {
       });
       return;
     }
-    res.send({
-      code: 200,
-      data: {
-        uid: "1",
-        nickname: "admin",
-        name: "admin",
-        gender: "男",
-        age: 20,
-        phone: "13154861",
-        email: "ssss@qq.com",
-      },
+    if (token === 'admin') {
+      res.send({
+        code: 200,
+        data: {
+          uid: '1',
+          nickname: 'admin',
+          name: 'admin',
+          gender: '男',
+          age: 20,
+          phone: '13112345678',
+          email: 'admin@qq.com',
+          role: 'admin',
+        },
+      });
+      return;
+    }
+
+    if (token === 'user') {
+      res.send({
+        code: 200,
+        data: {
+          uid: '2',
+          nickname: 'user',
+          name: 'user',
+          gender: "男",
+          age: 20,
+          phone: '13112345678',
+          email: 'user@qq.com',
+          role: 'user',
+        }
+      })
+      return;
+    }
+
+    res.status(401).send({
+      code: 401,
+      message: '请先登录',
+      data: {},
     });
+    return;
+    
   },
   // 获取用户列表
   'GET /api/users/list':async (req :Request, res: Response,u :string) =>{
@@ -86,16 +100,29 @@ export default {
     const { password, nickname } = req.body;
     await waitTime(2000);
     if (password === '123456' && nickname === 'admin') {
+    
       res.send({
         code: 200,
         message: '登录成功',
         data: {
-          token: '123',
+          token: 'admin',
           userId: 1,
           name: 'admin'
         }
       });
-      access = 'admin';
+      return;
+    }
+
+    if (password === '123456' && nickname === 'user') {
+      res.send({
+        code: 200,
+        message: '登录成功',
+        data: {
+          token: 'user',
+          userId: 2,
+          name: 'user'
+        }
+      });
       return;
     }
    
@@ -104,7 +131,6 @@ export default {
       message: '用户名或密码错误',
       data: {}
     });
-    access = 'guest';
   },
   // 新增用户
   'POST /api/users/add': async (req: Request, res: Response) => {

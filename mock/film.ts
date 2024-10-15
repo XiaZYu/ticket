@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import Mock from 'mockjs';
+import { lang } from 'moment';
 
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
@@ -14,21 +15,26 @@ const waitTime = (time: number = 100) => {
 export default {
   // 获取电影列表
   'GET /api/films/list': (req: Request, res: Response) => {
-    const data = Mock.mock({
-      'data|10': [
-        {
-          'filmId|+1': 1,
-          filmName: '@ctitle',
-          'filmType|1': ['喜剧', '动作', '爱情', '科幻'],
-          'language|1': ['中文', '英文'],
-          'filmDuration|90-120': 1,
-          price: 30,
-          synopsis: '@cparagraph',
-          posters: '@image',
-          'boxOffice|1-100': 1,
-        },
-      ],
-    }).data;
+
+    const current: number = Number(req.query.current) || 1;
+    const pageSize: number = Number(req.query.pageSize) || 10;
+    let data = [];
+
+    for (let i = 0; i < pageSize ; i++) {
+      data.push({
+        filmId: i + 1,
+        filmName: Mock.mock('@ctitle'),
+        filmType: Mock.mock('@ctitle'),
+        language: Mock.mock('@shuffle(["中文", "英文"], 1)'),
+        filmDuration: Mock.mock('@integer(90, 120)'),
+        price: 30,
+        synopsis: Mock.mock('@cparagraph'),
+        posters: Mock.mock('@image("180x240", "#aaa", "#FFF", "png", "poster")'),
+        'boxOffice': Mock.mock('@integer(1000, 10000)'),
+      });
+
+        
+    }
 
     res.send({
       code: 200,

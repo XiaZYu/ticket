@@ -1,4 +1,4 @@
-interface UserInfo {
+export interface UserInfo {
   uid: string;
   nickname: string;
   name: string;
@@ -7,4 +7,5 @@ interface UserInfo {
   age: number;
   phone: number;
   email: string;
+  role: string;
 }

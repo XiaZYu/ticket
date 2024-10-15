@@ -1,12 +1,11 @@
 import { Footer, AvatarDropdown, AvatarName } from '@/components';
-import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { history, Link } from '@umijs/max';
+import { history } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import React from 'react';
 import { currentUser } from './services/auth';
-const isDev = process.env.NODE_ENV === 'development';
+import { UserInfo } from './types/user';
 const loginPath = '/user/login';
 const whiteList=[loginPath,'/user/register'];
 /**
@@ -33,10 +32,14 @@ export async function getInitialState(): Promise<{
   const { location } = history;
   if (!whiteList.includes(location.pathname)) {
     const currentUser = await fetchUserInfo();
+
+
     return {
       fetchUserInfo,
       currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
+      settings: {
+        ...defaultSettings,
+      } as Partial<LayoutSettings>,
     };
   }
   return {
@@ -46,7 +49,22 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
-export const layout: ({initialState, setInitialState}: { initialState: any; setInitialState: any }) => any = ({ initialState, setInitialState }) => {
+export const layout: ({initialState, setInitialState}: { initialState: any; setInitialState: any }) => any = ({ initialState }) => {
+  const currentUser = initialState?.currentUser;
+
+
+  const layout = currentUser.role === 'admin' ? 'mix' : 'top';
+  const contentWidth = currentUser.role === 'admin' ? 'Fluid' : 'Fixed';
+  const title = currentUser.role === 'admin' ? '电影管理系统' : '购票平台';
+
+  const settings = {
+    ...initialState?.settings,
+    layout,
+    contentWidth,
+    title,
+  }
+
+
   return {
     avatarProps: {
       src: initialState?.currentUser?.avatar,
@@ -56,7 +74,7 @@ export const layout: ({initialState, setInitialState}: { initialState: any; setI
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: currentUser?.role === 'admin' ? currentUser?.name : false,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -86,14 +104,7 @@ export const layout: ({initialState, setInitialState}: { initialState: any; setI
         width: '331px',
       },
     ],
-    links: isDev
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
-      : [],
+    links: [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
@@ -103,23 +114,10 @@ export const layout: ({initialState, setInitialState}: { initialState: any; setI
       return (
         <>
           {children}
-          {/*{isDev && (*/}
-          {/*  <SettingDrawer*/}
-          {/*    disableUrlParams*/}
-          {/*    enableDarkTheme*/}
-          {/*    settings={initialState?.settings}*/}
-          {/*    onSettingChange={(settings) => {*/}
-          {/*      setInitialState((preInitialState) => ({*/}
-          {/*        ...preInitialState,*/}
-          {/*        settings,*/}
-          {/*      }));*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*)}*/}
         </>
       );
     },
-    ...initialState?.settings,
+    ...settings,
   };
 };
 

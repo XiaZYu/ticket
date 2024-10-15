@@ -1,7 +1,8 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
+import { useAccess, useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
 import React from 'react';
+import WelcomeFilmList from './components/WelcomeFilmList';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -86,9 +87,15 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
+  const currentUser = initialState?.currentUser;
+  const access = useAccess();
   return (
-    <PageContainer>
-      <Card
+    <PageContainer title={currentUser?.role === "admin" ? undefined : false}>
+      {access.canUser && (
+        <WelcomeFilmList className='mb-8' />
+      )}
+      {access.canAdmin && (
+        <Card
         style={{
           borderRadius: 8,
         }}
@@ -157,6 +164,7 @@ const Welcome: React.FC = () => {
           </div>
         </div>
       </Card>
+      )}
     </PageContainer>
   );
 };
