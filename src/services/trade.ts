@@ -20,3 +20,14 @@ export async function createTrade(body: TradeInfo, options?: { [key: string]: an
     ...(options || {}),
   });
 }
+
+/** 获取个人交易列表 */
+export async function getMyTradeList(params: { current?: number; pageSize?: number; }, options?: { [key: string]: any }) : Promise<API.ResponsePageData<TradeInfo>> {
+  return request('/api/trade/my-list', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

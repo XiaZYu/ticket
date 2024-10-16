@@ -40,14 +40,28 @@ export default [
     name: '用户管理',
     icon: 'smile',
     access: 'canAdmin',
-    component: './Admin/UserList'
+    component: './Admin/UserManage'
   },
   {
     path: '/films',
     name: '电影管理',
     icon: 'smile',
     access: 'canAdmin',
-    component: './Admin/FilmList'
+    component: './Admin/FilmManage'
+  },
+  {
+    path: '/trades',
+    name: '订单管理',
+    icon: 'smile',
+    access: 'canAdmin',
+    component: './Admin/TradeManage'
+  },
+  {
+    path: '/seats',
+    name: '座位管理',
+    icon: 'smile',
+    access: 'canAdmin',
+    component: './Admin/SeatManage'
   },
   {
     path: '/trade',

@@ -12,7 +12,7 @@ const waitTime = (time: number = 100) => {
 
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
-  // 获取电影列表
+  // 获取交易列表
   'GET /api/trade/list': (req: Request, res: Response) => {
 
     const current: number = Number(req.query.current) || 1;
@@ -45,13 +45,40 @@ export default {
       },
     });
   },
-  // 新增电影
-  'POST /api/films/add': async (req: Request, res: Response) => {
+  // 获取个人交易列表
+  'GET /api/trade/my-list': async (req: Request, res: Response) => {
     await waitTime(2000);
+    const current: number = Number(req.query.current) || 1;
+    const pageSize: number = Number(req.query.pageSize) || 10;
+    let data = [];
+
+    for (let i = 0; i < pageSize ; i++) {
+      data.push({
+        tradeId: Mock.mock('@id'),
+        filmName: Mock.mock('@ctitle'),
+        posters: Mock.mock('@image'),
+        filmId: Mock.mock('@id'),
+        uid: Mock.mock('@id'),
+        name: Mock.mock('@cname'),
+        sessionName: Mock.mock('@ctitle'),
+        seat: Mock.mock('@integer(1, 100)'),
+        phone: Mock.mock('@regex(1[3456789][0-9]{9})'),
+        tradeDate: Mock.mock('@datetime'),
+        status: Mock.mock('@integer(0, 1)'),
+        price: Mock.mock('@integer(30, 100)'),
+      });
+        
+    }
+
     res.send({
       code: 200,
       message: 'success',
-      data: null,
+      data: {
+        list: data,
+        count: 100,
+        page: 1,
+        size: 10,
+      },
     });
   },
   // 删除用户
