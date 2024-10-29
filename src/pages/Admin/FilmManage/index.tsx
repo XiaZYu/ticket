@@ -6,17 +6,24 @@ import CreateFilmModal from './components/CreateFilmModal';
 import UpdateFilmModal from './components/UpdateFilmModal';
 import { Button, message, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import currency from "currency.js";
 const FilmList = () => {
-  const actionRef = useRef<ActionType>();
+  const table = useRef<ActionType>();
   const [currentFilm, setCurrentFilm] = useState<FilmInfo | undefined>(undefined);
 
   const [createFilmModalOpen, setCreateFilmModalOpen] = useState(false);
   const [updateFilmModalOpen, setUpdateFilmModalOpen] = useState(false);
   const columns: ProColumns<FilmInfo>[] = [
     {
-      title: 'ID',
-      valueType: 'text',
-      dataIndex: 'filmId',
+      title: 'id',
+      valueType: 'index',
+      dataIndex: 'index',
+      search: false,
+    },
+    {
+      title: '海报',
+      valueType: 'image',
+      dataIndex: 'posters',
       search: false,
     },
     {
@@ -37,42 +44,42 @@ const FilmList = () => {
     },
     {
       title: '电影时长',
+      width: 120,
       valueType: 'text',
       dataIndex: 'filmDuration',
       search: false,
+      renderText: text => `${text} 分钟`
     },
     {
       title: '简介',
       valueType: 'text',
       dataIndex: 'synopsis',
-      width: 300,
       search: false,
     },
     {
       title: '票价',
       valueType: 'text',
       dataIndex: 'price',
+      width:100,
       search: false,
-    },
-    {
-      title: '海报',
-      valueType: 'text',
-      dataIndex: 'posters',
-      search: false,
+      renderText:text => `${currency(text)} 元`
     },
     {
       title: '票房',
+      width: 100,
       valueType: 'text',
       dataIndex: 'boxOffice',
       search: false,
+      renderText:text => `${currency(text)} 万元`
     },
     {
       title: '操作',
+      width: 100,
       valueType: 'option',
       render: (_, record) => [<a key="edit" onClick={() => {
         setUpdateFilmModalOpen(true);
         setCurrentFilm(record);
-      }}>编辑</a>, 
+      }}>编辑</a>,
       <a key="delete" onClick={async () => {
         Modal.confirm({
           title: '删除电影',
@@ -81,7 +88,7 @@ const FilmList = () => {
             const res = await deleteFilm(record.filmId);
             if (res.code === 200) {
               message.success('删除电影成功');
-              actionRef.current?.reload();
+              table.current?.reload();
               return true;
             }
             message.error(res.message);
@@ -95,9 +102,10 @@ const FilmList = () => {
   return (
     <PageContainer>
       <ProTable
-        actionRef={actionRef}
+        actionRef={table}
         rowKey="filmId"
         cardBordered
+        pagination={{ pageSize: 10}}
         headerTitle="电影列表"
         columns={columns}
         request={async (params) => {
@@ -126,7 +134,7 @@ const FilmList = () => {
         onOpenChange={setCreateFilmModalOpen}
         onFinish={() => {
           message.success('新增电影成功');
-          actionRef.current?.reload();
+          table.current?.reload();
         }}
       />
       <UpdateFilmModal
@@ -135,7 +143,7 @@ const FilmList = () => {
         onOpenChange={setUpdateFilmModalOpen}
         onFinish={() => {
           message.success('修改电影成功');
-          actionRef.current?.reload();
+          table.current?.reload();
         }}
       />
     </PageContainer>

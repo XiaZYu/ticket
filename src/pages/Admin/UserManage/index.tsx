@@ -24,7 +24,7 @@ const UserList = () => {
   const [currentUser, setCurrentUser] = useState<Item | undefined>(undefined);
   const [createUserModalOpen, setCreateUserModalOpen] = useState(false);
   const [updateUserModalOpen, setUpdateUserModalOpen] = useState(false);
-  
+
 
   const handleDelete = async (id: string) => {
     Modal.confirm({
@@ -45,6 +45,7 @@ const UserList = () => {
 
   const columns: ProColumns<Item>[] = [
     {
+      title:'id',
       dataIndex: 'index',
       valueType: 'index',
       width: 48,
@@ -112,7 +113,7 @@ const UserList = () => {
           };
         }}
         rowKey="uid"
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 5}}
         headerTitle="用户列表"
         toolBarRender={() => [
           <Button

@@ -1,4 +1,5 @@
-import { addUser } from "@/services/users";
+import { addFilm } from "@/services/films";
+import { FilmInfo } from "@/types/film";
 import { ModalForm, ProFormSelect, ProFormText, ProFormDigit } from '@ant-design/pro-components';
 import { message } from "antd";
 
@@ -10,8 +11,8 @@ interface CreateFilmModalProps {
 
 const CreateFilmModal = ({ open, onOpenChange, onFinish }: CreateFilmModalProps) => {
 
-  const handleCreate = async (values: UserInfo) => {
-    const res = await addUser(values);
+  const handleCreate = async (values: FilmInfo) => {
+    const res = await addFilm(values);
     if (res.code === 200) {
       onFinish();
       return true;

@@ -1,4 +1,5 @@
 import { addUser } from "@/services/users";
+import { UserInfo } from "@/types/user";
 import { ModalForm, ProFormSelect, ProFormText, ProFormDigit } from '@ant-design/pro-components';
 import { message } from "antd";
 

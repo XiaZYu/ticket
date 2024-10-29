@@ -1,4 +1,4 @@
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined, EditOutlined} from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
 import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
@@ -119,10 +119,16 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
         ]
       : []),
     {
+      key: 'password',
+      icon: <EditOutlined />,
+      label: '修改密码'
+    },
+    {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: '退出登录',
     },
+
   ];
 
   return (

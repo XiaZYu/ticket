@@ -37,8 +37,8 @@ export async function addFilm(body: FilmInfo, options?: { [key: string]: any }) 
 export async function deleteFilm(id: string, options?: { [key: string]: any }) {
   return request(`/api/films/delete`, {
     method: 'DELETE',
-    body: {
-      filmId: id,
+    params:{
+      id,
     },
     ...(options || {}),
   });
@@ -51,6 +51,13 @@ export async function updateFilm(body: FilmInfo, options?: { [key: string]: any 
     data: {
       ...body,
     },
+    ...(options || {}),
+  });
+}
+
+export async function getFilmNameList(options?: { [key: string]: any }) {
+  return request('/api/films/getFilmForName', {
+    method: 'GET',
     ...(options || {}),
   });
 }

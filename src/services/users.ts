@@ -36,8 +36,11 @@ export async function addUser(body: UserInfo, options?: { [key: string]: any }):
 
 /** 删除用户 */
 export async function deleteUser(id: string, options?: { [key: string]: any }): Promise<API.ResponseData> {
-  return request(`/api/users/delete/${id}`, {
+  return request(`/api/users/delete`, {
     method: 'DELETE',
+    params: {
+      id,
+    },
     ...(options || {}),
   });
 }

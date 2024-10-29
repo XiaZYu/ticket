@@ -1,4 +1,5 @@
 import { updateUser } from '@/services/users';
+import { UserInfo } from '@/types/user';
 import { ModalForm, ProFormSelect, ProFormText, ProFormDigit, ProForm } from '@ant-design/pro-components';
 import { message } from "antd";
 import { useEffect } from "react";
@@ -54,7 +55,7 @@ const UpdateUserModal = ({ open, onOpenChange, onFinish, userInfo }: UpdateUserM
       autoComplete="off"
     >
       <ProFormText name="uid" label="用户ID" readonly />
-      <ProFormText name="name" label="姓名" />
+      <ProFormText name="name" label="姓名" readonly/>
       <ProFormText name="nickname" label="用户名" />
       <ProFormText name="phone" label="手机号" />
       <ProFormText name="email" label="邮箱" />
@@ -67,7 +68,7 @@ const UpdateUserModal = ({ open, onOpenChange, onFinish, userInfo }: UpdateUserM
           { label: '女', value: '女' },
         ]}
       />
-      <ProFormText.Password name="password" label="密码" placeholder="不修改请留空" />
+      <ProFormText.Password name="password" label="密码"  readonly/>
     </ModalForm>
   );
 }

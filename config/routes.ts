@@ -57,12 +57,26 @@ export default [
     component: './Admin/TradeManage'
   },
   {
-    path: '/seats',
-    name: '座位管理',
+    path: '/halls',
+    name: '影厅管理',
     icon: 'smile',
     access: 'canAdmin',
-    component: './Admin/SeatManage'
+    component: './Admin/HallManage'
   },
+  {
+    path: '/session',
+    name: '场次管理',
+    icon: 'smile',
+    access: 'canAdmin',
+    component: './Admin/SessionManage'
+  },
+  // {
+  //   path: '/seats',
+  //   name: '座位管理',
+  //   icon: 'smile',
+  //   access: 'canAdmin',
+  //   component: './Admin/SeatManage'
+  // },
   {
     path: '/trade',
     name: '订单列表',
