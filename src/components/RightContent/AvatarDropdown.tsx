@@ -1,4 +1,4 @@
-import { LogoutOutlined, UserOutlined, EditOutlined} from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined, EditOutlined } from '@ant-design/icons';
 import { history, useModel } from '@umijs/max';
 import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
@@ -7,7 +7,7 @@ import type { MenuInfo } from 'rc-menu/lib/interface';
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -39,13 +39,14 @@ const useStyles = createStyles(({ token }) => {
 });
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, children }) => {
+
   /**
    * 退出登录，并且将当前的 url 保存
    */
   const loginOut = async () => {
     // await outLogin();
     //删除cookie里面的token
-    Cookies.remove("token")
+    Cookies.remove('token');
 
     const { search, pathname } = window.location;
     const urlParams = new URL(window.location.href).searchParams;
@@ -69,6 +70,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     (event: MenuInfo) => {
       const { key } = event;
       switch (key) {
+        case 'password':
+          history.push('/password');
+          break;
         case 'logout':
           flushSync(() => {
             setInitialState((s) => ({ ...s, currentUser: undefined }));
@@ -121,14 +125,13 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     {
       key: 'password',
       icon: <EditOutlined />,
-      label: '修改密码'
+      label: '修改密码',
     },
     {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: '退出登录',
     },
-
   ];
 
   return (

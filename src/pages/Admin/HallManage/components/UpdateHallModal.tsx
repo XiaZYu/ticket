@@ -1,6 +1,6 @@
 import { updateHall } from '@/services/hall';
 import { HallInfo } from '@/types/hall';
-import { ModalForm, ProFormSelect, ProFormText, ProFormDigit, ProForm } from '@ant-design/pro-components';
+import { ModalForm, ProFormText, ProForm } from '@ant-design/pro-components';
 import { message } from "antd";
 import { useEffect } from "react";
 

@@ -34,3 +34,20 @@ export async function login(body: {
   });
 }
 
+
+/** 修改密码 PUT /api/users/changePassword*/
+export async function changePassword(body: {
+  oldPassword: string;
+  newPassword: string;
+  repeatPassword: string;
+}, options?: { [key: string]: any }) : Promise<API.ResponseData> {
+  return request<API.ResponseData>('/api/users/changePassword', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+

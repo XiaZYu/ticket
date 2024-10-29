@@ -30,17 +30,20 @@ const FilmList = () => {
       title: '电影名称',
       valueType: 'text',
       dataIndex: 'filmName',
+      minWidth: 150,
     },
     {
       title: '电影类型',
       valueType: 'text',
       dataIndex: 'filmType',
+      minWidth: 150,
     },
     {
       title: '电影语言',
       valueType: 'text',
       dataIndex: 'language',
       search: false,
+      minWidth: 150,
     },
     {
       title: '电影时长',

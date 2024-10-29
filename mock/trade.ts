@@ -22,14 +22,21 @@ export default {
     for (let i = 0; i < pageSize ; i++) {
       data.push({
         tradeId: Mock.mock('@id'),
+        uid: Mock.mock('@guid'),
         filmId: Mock.mock('@id'),
-        sessionId: Mock.mock('@id'),
-        seat: Mock.mock('@integer(1, 100)'),
-        uid: Mock.mock('@id'),
-        phone: Mock.mock('@regex(1[3456789][0-9]{9})'),
+        sessionId: Mock.mock('@guid'),
+        seat: Mock.mock("@guid"),
+        filmName: Mock.mock('@ctitle'),
+        posters: Mock.mock('@image'),
+        sessionName: Mock.mock('@ctitle'),
+        attr: Mock.mock('@pick(["3D", "2D"])'),
+        name: Mock.mock('@cname'),
+        phone: Mock.mock(/1[3456789][0-9]{9}/),
         tradeDate: Mock.mock('@datetime'),
-        status: Mock.mock('@integer(0, 1)'),
+        status: Mock.mock('@pick(["已支付", "未支付"])'),
         price: Mock.mock('@integer(30, 100)'),
+        scolumn: Mock.mock('@integer(1, 10)'),
+        srow: Mock.mock('@integer(1, 10)'),
       });
         
     }

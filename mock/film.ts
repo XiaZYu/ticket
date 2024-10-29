@@ -24,7 +24,8 @@ export default {
         filmId: i + 1,
         filmName: Mock.mock('@ctitle'),
         filmType: Mock.mock('@ctitle'),
-        language: Mock.mock('@shuffle(["中文", "英文"], 1)'),
+        // 从数组中随机选择一个元素
+        language: Mock.mock('@pick(["中文", "英文"])'),
         filmDuration: Mock.mock('@integer(90, 120)'),
         price: 30,
         synopsis: Mock.mock('@cparagraph'),

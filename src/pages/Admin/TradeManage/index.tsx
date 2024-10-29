@@ -3,7 +3,12 @@ import { TradeInfo } from '@/types/trade';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import {ProColumns} from '@ant-design/pro-components';
 import currency from "currency.js";
+import UpdateTradeModal from './components/UpdateTradeModal';
+import { useState } from 'react';
 const TradeList = () => {
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [currentTrade, setCurrentTrade] = useState<TradeInfo | undefined>(undefined);
+
   const columns: ProColumns<TradeInfo>[] = [
     {
       title: 'id',
@@ -50,6 +55,16 @@ const TradeList = () => {
       title: '交易时间',
       dataIndex: 'tradeDate',
       search: false
+    },
+    {
+      title: '操作',
+      valueType: 'option',
+      render: (_, record) => [
+        <a key="edit" onClick={() => {
+          setCurrentTrade(record);
+          setUpdateModalOpen(true);
+        }}>编辑</a>
+      ]
     }
   ]
 
@@ -71,6 +86,14 @@ const TradeList = () => {
         }
       }
     } />
+    <UpdateTradeModal 
+      open={updateModalOpen}
+      tradeInfo={currentTrade}
+      onOpenChange={setUpdateModalOpen}
+      onFinish={() => {
+
+      }}
+    />
   </PageContainer>
 }
 

@@ -36,6 +36,13 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/password',
+    name: '修改密码',
+    icon: 'smile',
+    component: './Auth/ChangePassword',
+    hideInMenu: true,
+  },
+  {
     path: '/users',
     name: '用户管理',
     icon: 'smile',
@@ -70,13 +77,6 @@ export default [
     access: 'canAdmin',
     component: './Admin/SessionManage'
   },
-  // {
-  //   path: '/seats',
-  //   name: '座位管理',
-  //   icon: 'smile',
-  //   access: 'canAdmin',
-  //   component: './Admin/SeatManage'
-  // },
   {
     path: '/trade',
     name: '订单列表',

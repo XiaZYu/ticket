@@ -171,4 +171,22 @@ export default {
       data: null
     });
   },
+  // 修改密码
+  'PUT /api/users/changePassword': async (req: Request, res: Response) => {
+    const { oldPassword, newPassword, repeatPassword } = req.body;
+    await waitTime(2000);
+    if (oldPassword === '123456') {
+      res.send({
+        code: 200,
+        message: 'success',
+        data: null
+      });
+      return;
+    }
+    res.send({
+      code: 400,
+      message: '密码错误',
+      data: null
+    });
+  }
 };
