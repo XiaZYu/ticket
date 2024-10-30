@@ -113,7 +113,6 @@ const UserList = () => {
           };
         }}
         rowKey="uid"
-        pagination={{ pageSize: 5}}
         headerTitle="用户列表"
         toolBarRender={() => [
           <Button
