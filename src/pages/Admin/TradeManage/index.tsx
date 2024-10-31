@@ -25,7 +25,7 @@ const TradeList = () => {
     },
     {
       title: '影厅',
-      dataIndex: 'sessionName',
+      dataIndex: 'hallName',
       search: false
     },
     {

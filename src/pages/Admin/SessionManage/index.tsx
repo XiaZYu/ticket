@@ -99,7 +99,7 @@ const SessionList = () => {
         open={createSessionModalOpen}
         onOpenChange={setCreateSessionModalOpen}
         onFinish={() => {
-          message.success('新增影厅成功');
+          message.success('新增场次成功');
           table.current?.reload();
         }}
       />
@@ -108,7 +108,7 @@ const SessionList = () => {
         open={updateSessionModalOpen}
         onOpenChange={setUpdateSessionModalOpen}
         onFinish={() => {
-          message.success('修改影厅成功');
+          message.success('修改场次成功');
           table.current?.reload();
         }}
       />
