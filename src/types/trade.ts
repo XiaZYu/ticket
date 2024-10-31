@@ -3,19 +3,23 @@ export interface TradeInfo {
   uid: string;
   filmId: string;
   hallId: number;
-  seat: number;
   filmName: string;
   posters: string;
   hallName: string;
-  attr: string;
+  seatList: SeatList[];
   name: string;
   phone: number;
   tradeDate: string;
   status: string;
   price: number;
-  srow: string;
-  scolumn: string;
   time: string;
+}
+
+interface SeatList {
+  seat: string
+  srow: number;
+  scolumn: number;
+  attr: string;
 }
 
 export interface TradeListDetail {

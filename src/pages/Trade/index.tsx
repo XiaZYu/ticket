@@ -32,7 +32,11 @@ const TradeList = () => {
     {
       title: '座位',
       render: (text, record) => {
-        return `${record.srow}排${record.scolumn}列 (${record.attr})`
+        return record.seatList.map(seat => (
+          <div key={`${seat.srow}-${seat.scolumn}`}>
+          {`${seat.srow.toString().padStart(2, '0')} 排 ${seat.scolumn.toString().padStart(2, '0')} 座 （${seat.attr}）`}
+          </div>
+        ));
       }
     },
     
@@ -50,6 +54,17 @@ const TradeList = () => {
     {
       title: '状态',
       dataIndex: 'status',
+      renderText: (text) => {
+        if (text === '已支付') {
+          return <span className='text-green-500'>{text}</span>
+        } else if (text === '未支付') {
+          return <span className='text-blue-500'>去支付</span>
+        } else if (text === '已取消') {
+          return <span className='text-green-500'>{text}</span>
+        }else {
+          return <span className='text-red-500'>{text}</span>
+        }
+      }
     },
     {
       title: '交易时间',

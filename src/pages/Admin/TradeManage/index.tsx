@@ -37,7 +37,11 @@ const TradeList = () => {
       dataIndex: 'attr',
       search: false,
       render:(_, record) =>{
-        return `${record.srow} 排 ${record.scolumn} 座 （${record.attr}）`
+         return record.seatList.map(seat => (
+           <div key={`${seat.srow}-${seat.scolumn}`}>
+           {`${seat.srow.toString().padStart(2, '0')} 排 ${seat.scolumn.toString().padStart(2, '0')} 座 （${seat.attr}）`}
+           </div>
+         ));
       }
     },
     {
