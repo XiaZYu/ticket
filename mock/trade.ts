@@ -21,14 +21,16 @@ export default {
 
     for (let i = 0; i < pageSize ; i++) {
       data.push({
-        tradeId: Mock.mock('@id'),
+        tradeId: Mock.mock('@guid'),
         uid: Mock.mock('@guid'),
-        filmId: Mock.mock('@id'),
-        sessionId: Mock.mock('@guid'),
+        filmId: Mock.mock('@guid'),
+        hallId: Mock.mock('@guid'),
         seat: Mock.mock("@guid"),
+        sessionId: Mock.mock('@guid'),
+        time: Mock.mock('@datetime'),
         filmName: Mock.mock('@ctitle'),
         posters: Mock.mock('@image'),
-        sessionName: Mock.mock('@ctitle'),
+        hallName: Mock.mock('@ctitle'),
         attr: Mock.mock('@pick(["3D", "2D"])'),
         name: Mock.mock('@cname'),
         phone: Mock.mock(/1[3456789][0-9]{9}/),
@@ -61,18 +63,24 @@ export default {
 
     for (let i = 0; i < pageSize ; i++) {
       data.push({
-        tradeId: Mock.mock('@id'),
+        tradeId: Mock.mock('@guid'),
+        uid: Mock.mock('@guid'),
+        filmId: Mock.mock('@guid'),
+        hallId: Mock.mock('@guid'),
+        seat: Mock.mock("@guid"),
+        sessionId: Mock.mock('@guid'),
+        time: Mock.mock('@datetime'),
         filmName: Mock.mock('@ctitle'),
         posters: Mock.mock('@image'),
-        filmId: Mock.mock('@id'),
-        uid: Mock.mock('@id'),
+        hallName: Mock.mock('@ctitle'),
+        attr: Mock.mock('@pick(["3D", "2D"])'),
         name: Mock.mock('@cname'),
-        sessionName: Mock.mock('@ctitle'),
-        seat: Mock.mock('@integer(1, 100)'),
-        phone: Mock.mock('@regex(1[3456789][0-9]{9})'),
+        phone: Mock.mock(/1[3456789][0-9]{9}/),
         tradeDate: Mock.mock('@datetime'),
-        status: Mock.mock('@integer(0, 1)'),
+        status: Mock.mock('@pick(["已支付", "未支付"])'),
         price: Mock.mock('@integer(30, 100)'),
+        scolumn: Mock.mock('@integer(1, 10)'),
+        srow: Mock.mock('@integer(1, 10)'),
       });
         
     }

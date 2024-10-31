@@ -22,9 +22,9 @@ const WelcomeFilmList = (props: Props) => {
               className="relative border aspect-[9/12] rounded-lg overflow-hidden"
             >
               <div className="absolute top-0 w-full flex p-2"></div>
-              <div className="absolute w-full h-full bg-gradient-to-b from-transparent from-70% to-black/30"></div>
+              <div className="absolute w-full h-full bg-gradient-to-b from-transparent from-50% to-black/90"></div>
               <img className="w-full h-full cover" src={film.posters} alt={film.filmName} />
-              <div className="w-full  absolute bottom-0 p-2  text-white">
+              <div className="w-full  absolute bottom-0 p-2 text-white">
                 <div className="flex gap-2">
                   <div className="text-zinc-100">{film.language}</div>
                   <div className="text-zinc-100">{film.filmDuration} 分钟</div>

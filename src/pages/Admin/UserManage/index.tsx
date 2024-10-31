@@ -81,7 +81,7 @@ const UserList = () => {
       title: '操作',
       valueType: 'option',
       key: 'option',
-      render: (text, record, _, action) => [
+      render: (text, record,) => [
         <a
           key="editable"
           onClick={() => {

@@ -2,11 +2,11 @@ export interface TradeInfo {
   tradeId: string;
   uid: string;
   filmId: string;
-  sessionId: number;
+  hallId: number;
   seat: number;
   filmName: string;
   posters: string;
-  sessionName: string;
+  hallName: string;
   attr: string;
   name: string;
   phone: number;
@@ -15,6 +15,7 @@ export interface TradeInfo {
   price: number;
   srow: string;
   scolumn: string;
+  time: string;
 }
 
 export interface TradeListDetail {

@@ -79,9 +79,8 @@ export default [
   },
   {
     path: '/trade',
-    name: '订单列表',
+    name: '我的订单',
     icon: 'smile',
-    hideInMenu: true,
     access: 'canUser',
     component: './Trade'
   },
