@@ -197,10 +197,10 @@ const Login: React.FC = () => {
                     required: true,
                     message: ("请输入密码！"),
                   },
-                  // {
-                  //   pattern: /^(?=.*\d)(?=.*[A-z])[\da-zA-Z]{6,12}$/,
-                  //   message: '由6-12位数字和字母组成',
-                  // },
+                  {
+                    pattern: /^(?=.*\d)(?=.*[A-z])[\da-zA-Z]{6,12}$/,
+                    message: '由6-12位数字和字母组成',
+                  },
                 ]}
               />
             </>
