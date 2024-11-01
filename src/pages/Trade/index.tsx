@@ -1,10 +1,17 @@
 import { getMyTradeList } from '@/services/trade';
 import { TradeInfo } from '@/types/trade';
-import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { ActionType, PageContainer, ProTable } from '@ant-design/pro-components';
 import {ProColumns} from '@ant-design/pro-components';
 import currency from 'currency.js';
-import { Image } from 'antd';
+import { Image, message } from 'antd';
+import { useRef, useState } from 'react';
+import PayModel from './components/PayModel';
+import { set } from 'lodash';
 const TradeList = () => {
+  const table = useRef<ActionType>();
+  const [PayModelOpen , setModelOpen] = useState(false);
+  const [tradeinfo, setTradeinfo] = useState<TradeInfo>({} as TradeInfo);
+
   const columns: ProColumns<TradeInfo>[] = [
     {
       title: '影片',
@@ -54,11 +61,14 @@ const TradeList = () => {
     {
       title: '状态',
       dataIndex: 'status',
-      renderText: (text) => {
+      renderText: (text, record) => {
         if (text === '已支付') {
           return <span className='text-green-500'>{text}</span>
         } else if (text === '未支付') {
-          return <span className='text-blue-500'>去支付</span>
+          return <span className='text-blue-500' onClick={() =>{
+            setTradeinfo(record);
+            setModelOpen(true);
+          }}>去支付</span>
         } else if (text === '已取消') {
           return <span className='text-green-500'>{text}</span>
         }else {
@@ -88,6 +98,15 @@ const TradeList = () => {
         }
       }
     } />
+    <PayModel
+      open={PayModelOpen}
+      onOpenChange={setModelOpen}
+      tradeinfo={tradeinfo}
+      onFinish={() => {
+        message.success('支付成功');
+        table.current?.reload();
+      }}
+      />
   </PageContainer>
 }
 
