@@ -1,6 +1,8 @@
 import { changePassword } from '@/services/auth';
 import { PageContainer, ProCard, ProForm, ProFormText } from '@ant-design/pro-components';
 import { Button, Flex, message } from 'antd';
+import { history } from '@umijs/max';
+import Cookies from 'js-cookie';
 
 const ChangePassword = () => {
   const [form] = ProForm.useForm();
@@ -10,6 +12,11 @@ const ChangePassword = () => {
     if (res.code === 200) {
       message.success('修改成功');
       form.resetFields();
+      Cookies.remove('token');
+
+      history.replace({
+        pathname: '/user/login',
+      });
     } else {
       message.error(res.message);
     }
