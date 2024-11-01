@@ -1,5 +1,7 @@
 import { Carousel } from 'antd';
-import WelcomeFilmList from './components/WelcomeFilmList';
+import FilmList from '@/components/FilmList';
+import { useRequest } from '@umijs/max';
+import { getFilmList } from '@/services/films';
 
 const UserWelcome = () => {
 
@@ -26,6 +28,11 @@ const UserWelcome = () => {
     },
   ];
 
+  const {data} = useRequest(() => getFilmList({
+    current: 1,
+    pageSize: 10
+  }))
+
 
   return (
     <div className="flex flex-col gap-8 mb-8">
@@ -44,7 +51,15 @@ const UserWelcome = () => {
           </div>
         ))}
       </Carousel>
-      <WelcomeFilmList />
+      <FilmList
+        title={
+          <div>
+            <span>热门电影</span>
+            <span className="text-sm text-gray-400">（每日更新）</span>
+          </div>
+        }
+        data={data?.list || []}
+      />
     </div>
   );
 };
