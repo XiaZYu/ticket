@@ -78,12 +78,20 @@ export default [
     component: './Admin/SessionManage'
   },
   {
+    path: '/film',
+    name: '所有电影',
+    icon: 'smile',
+    access: 'canUser',
+    component: './Film'
+  },
+  {
     path: '/trade',
     name: '我的订单',
     icon: 'smile',
     access: 'canUser',
     component: './Trade'
   },
+  
   {
     path: '/',
     redirect: '/welcome',

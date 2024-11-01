@@ -1,21 +1,24 @@
-import { getFilmList } from "@/services/films"
 import { FilmInfo } from "@/types/film";
-import { useRequest } from "@umijs/max"
-import { HtmlHTMLAttributes } from "react";
+import React, { HtmlHTMLAttributes } from "react";
 
-type Props = HtmlHTMLAttributes<HTMLDivElement>
+interface Props extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'title'> {
+  title?: React.ReactNode
+  cardWidth?: number
+  data: FilmInfo[]
+}
 
-const WelcomeFilmList = (props: Props) => {
-  const {data} = useRequest(() => getFilmList({
-    current: 1,
-    pageSize: 10
-  }))
+
+const FilmList = (props: Props) => {
+  const {title, cardWidth = 200, data, ...restProps} = props
+
 
   return (
-    <div {...props}>
-      <h2 className="text-xl mb-4 font-medium">正在热映</h2>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 ">
-        {data?.list?.map((film: FilmInfo) => {
+    <div {...restProps}>
+      {title && <div className="text-2xl font-bold mb-4">{title}</div>}
+      <div className="grid gap-4" style={{
+        gridTemplateColumns: `repeat(auto-fill,minmax(${cardWidth}px,1fr))`
+      }}>
+        {data?.map((film: FilmInfo) => {
           return (
             <div
               key={film.filmId}
@@ -26,8 +29,8 @@ const WelcomeFilmList = (props: Props) => {
               <img className="w-full h-full cover" src={film.posters} alt={film.filmName} />
               <div className="w-full  absolute bottom-0 p-2 text-white">
                 <div className="flex gap-2">
-                  <div className="text-zinc-100">{film.language}</div>
-                  <div className="text-zinc-100">{film.filmDuration} 分钟</div>
+                  <div className="text-zinc-100 truncate">{film.language}</div>
+                  <div className="text-zinc-100 flex-shrink-0">{film.filmDuration} 分钟</div>
                 </div>
                 <div className="flex gap-2 justify-between items-center">
                   <div className="truncate text-lg">{film.filmName}</div>
@@ -47,4 +50,4 @@ const WelcomeFilmList = (props: Props) => {
   );
 }
 
-export default WelcomeFilmList;
+export default FilmList;
