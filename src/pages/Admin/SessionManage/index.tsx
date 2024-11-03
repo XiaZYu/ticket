@@ -34,9 +34,9 @@ const SessionList = () => {
     },
     {
       title: '时间',
-      valueType: 'text',
+      valueType: 'date',
       dataIndex: 'time',
-      search: false,
+      render: (_, record) => record.time
     },
     {
       title: '操作',
@@ -69,17 +69,18 @@ const SessionList = () => {
     <PageContainer>
       <ProTable
         actionRef={table}
-        rowKey="SessionId"
+        rowKey="sessionId"
         cardBordered
         pagination={{ pageSize: 10 }}
         headerTitle="场次列表"
         columns={columns}
         request={async (params) => {
-          const data = await getSessionList(params);
+          const res = await getSessionList(params);
+          console.log(res);
           return {
-            data: data.data?.list ?? [],
-            success: data.code === 200,
-            total: data.data.count,
+            data: res.data?.list,
+            success: res.code === 200,
+            total: res.data.count,
           };
         }}
         toolBarRender={() => [

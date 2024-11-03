@@ -49,7 +49,6 @@ const UpdateHallModal = ({ open, onOpenChange, onFinish, hallInfo: hallInfo }: U
       <ProFormText name="hallName" label="影厅名称" />
       <ProFormText name="seats" label="座位数" />
       <ProFormText name="hallDesc" label="影厅介绍" />
-      <ProFormText name="seatJson" label="座位图" />
     </ModalForm>
   );
 }

@@ -53,3 +53,21 @@ export async function updateSession(body: SessionInfo, options?: { [key: string]
     ...(options || {}),
   });
 }
+
+/**
+ * 根据电影Id获取场次
+ */
+export async function getSessionByFilmId(
+  filmId: string,
+  time?: string,
+  options?: { [key: string]: any },
+): Promise<SessionInfo[]> {
+  return request(`/api/sessions/getFilmSessions`, {
+    method: 'GET',
+    params: {
+      filmId,
+      time: time || '',
+    },
+    ...(options || {}),
+  });
+}

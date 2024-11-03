@@ -3,10 +3,9 @@ import { TradeInfo } from '@/types/trade';
 import { ActionType, PageContainer, ProTable } from '@ant-design/pro-components';
 import {ProColumns} from '@ant-design/pro-components';
 import currency from 'currency.js';
-import { Image, message } from 'antd';
+import { Button, Image, message } from 'antd';
 import { useRef, useState } from 'react';
 import PayModel from './components/PayModel';
-import { set } from 'lodash';
 const TradeList = () => {
   const table = useRef<ActionType>();
   const [PayModelOpen , setModelOpen] = useState(false);
@@ -61,16 +60,13 @@ const TradeList = () => {
     {
       title: '状态',
       dataIndex: 'status',
-      renderText: (text, record) => {
+      renderText: (text) => {
         if (text === '已支付') {
           return <span className='text-green-500'>{text}</span>
         } else if (text === '未支付') {
-          return <span className='text-blue-500' onClick={() =>{
-            setTradeinfo(record);
-            setModelOpen(true);
-          }}>去支付</span>
+          return <span className='text-blue-500'>未支付</span>
         } else if (text === '已取消') {
-          return <span className='text-green-500'>{text}</span>
+          return <span className='text-gray-500'>{text}</span>
         }else {
           return <span className='text-red-500'>{text}</span>
         }
@@ -80,6 +76,21 @@ const TradeList = () => {
       title: '交易时间',
       dataIndex: 'tradeDate',
     },
+    {
+      title: '操作',
+      valueType: 'option',
+      render: (text, record) => {
+       if (record.status === '未支付') {
+         return <Button type='link' onClick={() => {
+           setTradeinfo(record);
+           setModelOpen(true);
+         }}>立即支付</Button>
+       } else if (record.status === '已支付') {
+         return <Button type='link'>取消订单</Button>
+       }
+
+      }
+    }
   ]
 
 

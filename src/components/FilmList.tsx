@@ -1,4 +1,5 @@
 import { FilmInfo } from "@/types/film";
+import { Link } from "@umijs/max";
 import React, { HtmlHTMLAttributes } from "react";
 
 interface Props extends Omit<HtmlHTMLAttributes<HTMLDivElement>, 'title'> {
@@ -34,12 +35,14 @@ const FilmList = (props: Props) => {
                 </div>
                 <div className="flex gap-2 justify-between items-center">
                   <div className="truncate text-lg">{film.filmName}</div>
-                  <button
+                  <Link
+                    to={`/film/${film.filmId}`}
                     type="button"
                     className="px-2 py-1 bg-blue-400 rounded-md flex-shrink-0 hover:bg-blue-500"
+                    
                   >
                     购票
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

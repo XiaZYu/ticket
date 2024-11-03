@@ -1,10 +1,10 @@
-import { Area, Seat } from "@/types/seat";
+import { Area, Seat, SeatStatus } from "@/types/seat";
 import { nanoid } from "nanoid";
 
-const DEFAULT_SEAT_SIZE = 20;
+const DEFAULT_SEAT_SIZE = 40;
 const DETAULT_SEAT_GAP = 4;
 
-export function createCircleSeat(row: number, col: number, status: number) {
+export function createCircleSeat(row: number, col: number, status: SeatStatus) {
   const x = col * (DEFAULT_SEAT_SIZE + DETAULT_SEAT_GAP) + DETAULT_SEAT_GAP + DEFAULT_SEAT_SIZE / 2;
   const y = row * (DEFAULT_SEAT_SIZE + DETAULT_SEAT_GAP) + DETAULT_SEAT_GAP + DEFAULT_SEAT_SIZE / 2;
 
@@ -14,10 +14,13 @@ export function createCircleSeat(row: number, col: number, status: number) {
     y,
     width: DEFAULT_SEAT_SIZE,
     height: DEFAULT_SEAT_SIZE,
-    type: 'circle',
-    row,
-    col,
+    type: 'seat',
+    _row: row,
+    _col: col,
+    row: row + 1,
+    col: col + 1,
     status,
+    seatType: '普通座位',
   };
 
   return seat;
@@ -35,7 +38,7 @@ export function createArea(options: {
   const seats = Array.from({ length: rows * cols }, (_, index) => {
     const row = Math.floor(index / cols);
     const col = index % cols;
-    return createCircleSeat(row, col, 1);
+    return createCircleSeat(row, col, "enabled");
   });
 
   const area = {
@@ -53,7 +56,7 @@ export function createArea(options: {
   };
 
   seats.forEach((seat) => {
-    seat.area = area;
+    seat.areaId = area.id;
   });
   return area;
 }

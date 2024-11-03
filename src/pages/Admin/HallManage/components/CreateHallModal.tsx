@@ -1,6 +1,6 @@
 import { addHall } from "@/services/hall";
 import { HallInfo } from "@/types/hall";
-import { ModalForm, ProFormSelect, ProFormText, ProFormDigit } from '@ant-design/pro-components';
+import { ModalForm, ProFormText } from '@ant-design/pro-components';
 import { message } from "antd";
 
 interface CreateHallModalProps {
@@ -34,7 +34,6 @@ const CreateHallModal = ({ open, onOpenChange, onFinish }: CreateHallModalProps)
       autoComplete="off"
     >
       <ProFormText name="hallName" label="影厅名称" />
-      <ProFormText name="seats" label="座位数" />
       <ProFormText name="hallDesc" label="影厅介绍" />
     </ModalForm>
   );

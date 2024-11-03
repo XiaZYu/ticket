@@ -2,7 +2,7 @@ import { getFilmNameList } from "@/services/films";
 import { getHallNameList } from "@/services/hall";
 import { addSession } from "@/services/session";
 import { SessionInfo } from "@/types/session";
-import { ModalForm, ProFormSelect, ProFormText, ProFormDigit, ProFormDateTimePicker } from '@ant-design/pro-components';
+import { ModalForm, ProFormSelect, ProFormDateTimePicker } from '@ant-design/pro-components';
 import { message } from "antd";
 
 interface CreateSessionModalProps {

@@ -82,7 +82,21 @@ export default [
     name: '所有电影',
     icon: 'smile',
     access: 'canUser',
-    component: './Film'
+    hideChildrenInMenu: true,
+    routes: [
+      { 
+        path: '/film',
+        name: '所有电影',
+    component: './Film/list',
+        
+      },
+      {
+        path: '/film/:id',
+        name: '电影',
+        component: './Film/index',
+        hideInMenu: true,
+      },
+    ]
   },
   {
     path: '/trade',

@@ -7,4 +7,5 @@ export interface FilmInfo {
   price: number;
   posters: string;
   boxOffice: string;
+  synopsis: string;
 }

@@ -61,3 +61,14 @@ export async function getFilmNameList(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** 获取电影详情 */
+export async function getFilmDetail(id: string, options?: { [key: string]: any }): Promise<FilmInfo> {
+  return request(`/api/films/getFilmById`, {
+    method: 'GET',
+    params:{
+      id,
+    },
+    ...(options || {}),
+  });
+}

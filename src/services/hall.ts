@@ -59,3 +59,5 @@ export async function getHallNameList(options?: { [key: string]: any }) {
     ...(options || {}),
   });
 }
+
+/** 创建影厅座位图 */

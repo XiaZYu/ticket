@@ -2,11 +2,9 @@ import { getFilmNameList } from '@/services/films';
 import { getHallNameList } from '@/services/hall';
 import { updateSession } from '@/services/session';
 import { SessionInfo } from '@/types/session';
-import { ModalForm, ProFormSelect, ProFormText, ProFormDigit, ProForm, ProFormDateTimePicker } from '@ant-design/pro-components';
+import { ModalForm, ProFormSelect, ProFormText, ProForm, ProFormDateTimePicker } from '@ant-design/pro-components';
 import { message } from "antd";
-import { values } from 'lodash';
 import { useEffect } from "react";
-import { Label } from 'react-konva';
 
 interface UpdateSessionModalProps {
   open: boolean;

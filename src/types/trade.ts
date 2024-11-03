@@ -6,7 +6,7 @@ export interface TradeInfo {
   filmName: string;
   posters: string;
   hallName: string;
-  seatList: SeatList[];
+  seatList: TradeSeat[];
   name: string;
   phone: number;
   tradeDate: string;
@@ -15,7 +15,7 @@ export interface TradeInfo {
   time: string;
 }
 
-interface SeatList {
+export interface TradeSeat {
   seat: string
   srow: number;
   scolumn: number;
