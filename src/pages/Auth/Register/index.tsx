@@ -67,6 +67,8 @@ const Register: React.FC = () => {
         message.success('注册成功！');
         history.push('/user/login');
         return;
+      }else{
+        message.error(res.message);
       }
     } catch (error) {
       message.error('注册失败，请重试！');
