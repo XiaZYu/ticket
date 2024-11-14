@@ -19,7 +19,7 @@ export interface TradeSeat {
   seat: string
   srow: number;
   scolumn: number;
-  attr: string;
+  seatType: string;
 }
 
 export interface TradeListDetail {

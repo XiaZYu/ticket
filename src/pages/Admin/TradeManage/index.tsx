@@ -39,7 +39,7 @@ const TradeList = () => {
       render:(_, record) =>{
          return record.seatList.map(seat => (
            <div key={`${seat.srow}-${seat.scolumn}`}>
-           {`${seat.srow.toString().padStart(2, '0')} 排 ${seat.scolumn.toString().padStart(2, '0')} 座 （${seat.attr}）`}
+           {`${seat.srow.toString().padStart(2, '0')} 排 ${seat.scolumn.toString().padStart(2, '0')} 座 （${seat.seatType}）`}
            </div>
          ));
       }
