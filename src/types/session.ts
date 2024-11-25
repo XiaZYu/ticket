@@ -5,5 +5,5 @@ export interface SessionInfo {
     filmId: string;
     filmName: string;
     hallName: string;
-    seatJson: string;
+    seatJson: any;
 }

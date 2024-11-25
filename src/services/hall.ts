@@ -61,3 +61,19 @@ export async function getHallNameList(options?: { [key: string]: any }) {
 }
 
 /** 创建影厅座位图 */
+
+export async function editSeatMap(
+  params: { hallId: string , seats: number},
+  body: {seatJson: string },
+  options?: { [key: string]: any }
+) {
+  return request('/api/hall/modifySeatMap', {
+    method: 'PUT',
+    data: {
+      ...params,
+      ...body,
+    },
+    ...(options || {}),
+  });
+}
+

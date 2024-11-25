@@ -47,7 +47,7 @@ const UpdateTradeModal = ({ open, onOpenChange, onFinish, tradeInfo }: UpdateTra
     >
       <ProFormText name="tradeId" label="订单编号" readonly />
       <ProFormText name="filmName" label="电影" readonly />
-      <ProFormText name="cinemaName" label="影院" readonly />
+      <ProFormText name="hallName" label="影厅" readonly />
       <ProFormText name="name" label="用户" readonly />
       <ProFormText name="phone" label="手机号" />
       <ProFormSelect name="status" label="状态" valueEnum={{

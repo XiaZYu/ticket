@@ -71,3 +71,17 @@ export async function getSessionByFilmId(
     ...(options || {}),
   });
 }
+
+
+export async function getSessionSeatJson(
+  sessionId: string,
+  options?: { [key: string]: any },
+): Promise<string> {
+  return request(`/api/sessions/getSeatJson`, {
+    method: 'GET',
+    params: {
+      sessionId,
+    },
+    ...(options || {}),
+  });
+}
