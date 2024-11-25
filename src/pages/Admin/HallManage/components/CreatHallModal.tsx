@@ -5,6 +5,7 @@ import { createArea } from './utils';
 import { Area, Seat } from '@/types/seat';
 import { HallInfo } from '@/types/hall';
 import { ProForm, ProFormText, ProFormDigit, ProFormSelect } from '@ant-design/pro-components';
+import { editSeatMap } from '@/services/hall';
 
 type CreateSeatModalProps = {
   open: boolean;
@@ -13,8 +14,7 @@ type CreateSeatModalProps = {
   hallInfo?: HallInfo;
 };
 
-const CreateSeatModal = (props: CreateSeatModalProps) => {
-  const { open, onOpenChange } = props;
+const CreateSeatModal = ({open, onOpenChange, onFinish, hallInfo:HallInfo}: CreateSeatModalProps) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [areaUpdateForm] = ProForm.useForm();
   const [seatUpdateForm] = ProForm.useForm();
@@ -53,7 +53,13 @@ const CreateSeatModal = (props: CreateSeatModalProps) => {
       width={1200}
       onCancel={() => onOpenChange(false)}
       onOk={() => {
-        console.log(areas);
+        editSeatMap({hallId: HallInfo!.hallId, seats: areas.reduce((acc, area) => {
+          const enabledSeatsInArea = area.seats.filter(seat => seat.status === "enabled");
+          return acc + enabledSeatsInArea.length;
+        }, 0)}, {seatJson: JSON.stringify(areas)}).then(() => {
+          onFinish();
+          onOpenChange(false);
+        });
       }}
     >
       <div className="flex gap-2 ">

@@ -1,5 +1,6 @@
 import { HallInfo } from '@/types/hall';
 import { request } from '@umijs/max';
+import hall from 'mock/hall';
 
 /** 更新影厅 */
 export async function updateHall(body: HallInfo, options?: { [key: string]: any }) {
@@ -62,18 +63,21 @@ export async function getHallNameList(options?: { [key: string]: any }) {
 
 /** 创建影厅座位图 */
 
+
+
 export async function editSeatMap(
   params: { hallId: string , seats: number},
   body: {seatJson: string },
   options?: { [key: string]: any }
 ) {
-  return request('/api/hall/modifySeatMap', {
-    method: 'PUT',
+  return request('/api/hall/editSeatMap', {
+    method: 'POST',
     data: {
-      ...params,
       ...body,
+    },
+    params:{
+      ...params
     },
     ...(options || {}),
   });
 }
-

@@ -1,0 +1,31 @@
+[
+    {
+        "id": "IgbquzNjNtEeJWdpaYx77",
+        "name": "新增区域",
+        "x": 0,
+        "y": 0,
+        "width": 48,
+        "height": 48,
+        "type": "area",
+        "rows": 1,
+        "cols": 1,
+        "seats": [
+            {
+                "id": "b6_B8o1Aw9W-QRAzzZGff",
+                "x": 24,
+                "y": 24,
+                "width": 40,
+                "height": 40,
+                "type": "seat",
+                "_row": 0,
+                "_col": 0,
+                "row": 1,
+                "col": 1,
+                "status": "enabled",
+                "seatType": "普通座位",
+                "areaId": "IgbquzNjNtEeJWdpaYx77"
+            }
+        ],
+        "showName": true
+    }
+]
