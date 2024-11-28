@@ -1,12 +1,15 @@
-import { Button, Modal } from 'antd';
+import { Button, message, Modal } from 'antd';
 import { Circle, Layer, Line, Rect, Stage, Group, Text } from 'react-konva';
-import areaJSON from './area.json';
 import { useEffect, useRef, useState } from 'react';
 import { Area, Seat } from '@/types/seat';
 import { FilmInfo } from '@/types/film';
 import { LeftOutlined } from '@ant-design/icons';
+import {v4 as uuidv4} from 'uuid';
 import { SessionInfo } from '@/types/session';
 import { ProColumns, ProTable } from '@ant-design/pro-components';
+import { getSessionSeatJson } from '@/services/session';
+import { createTrade, payTrade } from '@/services/trade';
+import { set } from 'lodash';
 
 interface SeatSelelectModalProps {
   film: FilmInfo;
@@ -17,11 +20,12 @@ interface SeatSelelectModalProps {
 
 const SeatSelelectModal = (props: SeatSelelectModalProps) => {
   const { film, session, open, onOpenChange } = props;
-  const ref = useRef<HTMLDivElement>(null);
-  const [areas] = useState<Area[]>(areaJSON as Area[]);
+  const ref = useRef<HTMLDivElement>(null); 
+  const [areas, setAreas] = useState<Area[]>([]);
   const [currentSelect, setCurrentSelect] = useState<Seat | null>(null);
   const [confirmSeats, setConfirmSeats] = useState<Seat[]>([]);
   const [payConfirm, setPayConfirm] = useState(false);
+  const [tradeId, setTradeId] = useState(uuidv4());
   const [scale] = useState(1);
 
   function getSeatColor(seat: Seat, confirmSeats: Seat[]) {
@@ -29,11 +33,18 @@ const SeatSelelectModal = (props: SeatSelelectModalProps) => {
       return '#60a5fa';
     } else if (seat.status === 'enabled') {
       return '#e2e8f0';
-    } else {
+    } else if (seat.status === 'sold' || seat.status === 'lock'){
       return '#60a5fa';
     }
   }
-
+  useEffect(() => {
+    getSessionSeatJson(session.sessionId).then((res) => {
+      const data = JSON.parse(res.data);
+      console.log(data);
+      setAreas(data);
+    }
+    );
+  },[session.sessionId]);
   const columns: ProColumns<Seat>[] = [
     {
       key: 'index',
@@ -256,6 +267,8 @@ const SeatSelelectModal = (props: SeatSelelectModalProps) => {
                   if (confirmSeats.length === 0) {
                     return;
                   }
+                  const seats = confirmSeats.map((item) => item.id).join('//');
+                  createTrade({tradeId: tradeId, filmId:film.filmId, price:confirmSeats.length * film.price, seat: seats, sessionId: session.sessionId, status: '未支付', hallId: session.hallId});
                   setPayConfirm(true);
                 }}
               >
@@ -314,7 +327,11 @@ const SeatSelelectModal = (props: SeatSelelectModalProps) => {
             <Button
               type="primary"
               onClick={() => {
-                onOpenChange(false);
+                console.log(tradeId);
+                payTrade({ tradeId: tradeId, uid: '', price: confirmSeats.length * film.price }).then(() => {
+                  onOpenChange(false);
+                })
+                message.success('支付成功');
               }}
             >
               确认支付

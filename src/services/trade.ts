@@ -2,7 +2,7 @@ import { TradeInfo } from "@/types/trade";
 import { request } from "@umijs/max";
 
 /** 获取交易列表 GET /api/trade/list */
-export async function getTradeList(params: { current?: number; pageSize?: number; uid?: string; filmId?: string; sessionId?: string; }, options?: { [key: string]: any }) : Promise<API.ResponsePageData<TradeInfo>> {
+export async function getTradeList(params: { current?: number; pageSize?: number; uid?: string; filmId?: string; sessionId?: string; }, options?: { [key: string]: any }): Promise<API.ResponsePageData<TradeInfo>> {
   return request('/api/trade/list', {
     method: 'GET',
     params: {
@@ -14,15 +14,13 @@ export async function getTradeList(params: { current?: number; pageSize?: number
 
 /** 创建交易 POST /api/trade/create */
 export async function createTrade(body: {
+  tradeId?: string;
   filmId?: string;
-  phone?: number;
   price?: number;
   seat?: string;
   sessionId?: string;
   status?: string;
-  tradeDate?: string;
-  tradeId?: string;
-  uid?: string;
+  hallId?: string;
   [property: string]: any;
 }, options?: { [key: string]: any }): Promise<API.ResponseData> {
   return request('/api/trade/create', {
@@ -43,9 +41,26 @@ export async function updateTrade(body: TradeInfo, options?: { [key: string]: an
 
 
 /** 获取个人交易列表 */
-export async function getMyTradeList(params: { current?: number; pageSize?: number; }, options?: { [key: string]: any }) : Promise<API.ResponsePageData<TradeInfo>> {
+export async function getMyTradeList(params: { current?: number; pageSize?: number; }, options?: { [key: string]: any }): Promise<API.ResponsePageData<TradeInfo>> {
   return request('/api/trade/my-list', {
     method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 支付订单 */
+export async function payTrade(
+  params: {
+    tradeId?: string;
+    uid?: string;
+    price?: number;
+  },
+  options?: { [key: string]: any }) {
+  return request(`/api/payments/pay`, {
+    method: 'POST',
     params: {
       ...params,
     },

@@ -76,7 +76,7 @@ export async function getSessionByFilmId(
 export async function getSessionSeatJson(
   sessionId: string,
   options?: { [key: string]: any },
-): Promise<string> {
+) {
   return request(`/api/sessions/getSeatJson`, {
     method: 'GET',
     params: {

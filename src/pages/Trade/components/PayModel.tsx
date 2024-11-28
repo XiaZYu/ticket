@@ -2,6 +2,7 @@ import { Modal } from 'antd';
 import { TradeInfo, TradeSeat } from '@/types/trade';
 import React from 'react';
 import { ProTable, ProColumns } from '@ant-design/pro-components';
+import { payTrade } from '@/services/trade';
 
 interface PayModelProps {
   open: boolean;
@@ -23,13 +24,19 @@ const PayModel = ({ open, onOpenChange, onFinish, tradeinfo }: PayModelProps) =>
       renderText: (_, record) => {
         return `${record.srow.toString().padStart(2, '0')} 排 ${record.scolumn
           .toString()
-          .padStart(2, '0')} 座 （${record.attr}）`;
+          .padStart(2, '0')} 座 （${record.seatType}）`;
       },
     },
   ];
 
   return (
-    <Modal title="支付" open={open} onCancel={() => onOpenChange(false)} okText="立即支付">
+    <Modal title="支付" open={open} onCancel={() => onOpenChange(false)} okText="立即支付"
+      onOk={() => {
+        payTrade({ tradeId: tradeinfo?.tradeId, uid: '', price: tradeinfo?.price }).then(() => {
+          onFinish();
+          onOpenChange(false);
+        })
+      }}>
       <div className="flex flex-col gap-4">
         <div className="flex gap-6">
           <div>
@@ -58,8 +65,8 @@ const PayModel = ({ open, onOpenChange, onFinish, tradeinfo }: PayModelProps) =>
             pagination={
               tradeinfo?.seatList && tradeinfo.seatList.length > 5
                 ? {
-                    pageSize: 5,
-                  }
+                  pageSize: 5,
+                }
                 : false
             }
           />

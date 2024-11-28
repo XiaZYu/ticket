@@ -64,7 +64,7 @@ const TradeList = () => {
         if (text === '已支付') {
           return <span className='text-green-500'>{text}</span>
         } else if (text === '未支付') {
-          return <span className='text-blue-500'>未支付</span>
+          return <span className='text-blue-500'>{text}</span>
         } else if (text === '已取消') {
           return <span className='text-gray-500'>{text}</span>
         }else {
