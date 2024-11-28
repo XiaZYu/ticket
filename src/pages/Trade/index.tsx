@@ -98,6 +98,7 @@ const TradeList = () => {
 
     <ProTable 
       rowKey="tradeId"
+      actionRef={table}
       columns={columns}
       search={false}
       request={async (params) => {
