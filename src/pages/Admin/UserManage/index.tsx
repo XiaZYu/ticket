@@ -1,21 +1,23 @@
-import {PlusOutlined} from '@ant-design/icons';
-import type {ActionType, ProColumns} from '@ant-design/pro-components';
-import {PageContainer, ProTable} from '@ant-design/pro-components';
-import {Button, message, Modal} from 'antd';
-import {useRef, useState} from 'react';
-import {deleteUser, getUsersList} from "@/services/users";
+import { PlusOutlined } from '@ant-design/icons';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { Button, message, Modal } from 'antd';
+import { useRef, useState } from 'react';
+import { addBalance, deleteUser, getUsersList } from "@/services/users";
 import CreateUserModal from './components/CreateUserModal';
 import UpdateUserModal from './components/UpdateUserModal';
+import { add } from 'lodash';
 
 type Item = {
-  uid:string,
-  nickname:string,
-  name:string,
-  password:string,
-  gender:string,
-  age:number,
-  phone:number,
-  email:string
+  uid: string,
+  nickname: string,
+  name: string,
+  password: string,
+  gender: string,
+  age: number,
+  phone: number,
+  balance: number,
+  email: string
 };
 
 
@@ -24,6 +26,7 @@ const UserList = () => {
   const [currentUser, setCurrentUser] = useState<Item | undefined>(undefined);
   const [createUserModalOpen, setCreateUserModalOpen] = useState(false);
   const [updateUserModalOpen, setUpdateUserModalOpen] = useState(false);
+  const balance = useRef<HTMLInputElement>(null);
 
 
   const handleDelete = async (id: string) => {
@@ -45,7 +48,7 @@ const UserList = () => {
 
   const columns: ProColumns<Item>[] = [
     {
-      title:'id',
+      title: 'id',
       dataIndex: 'index',
       valueType: 'index',
       width: 48,
@@ -78,10 +81,39 @@ const UserList = () => {
       search: false,
     },
     {
+      title: '余额',
+      render: (_, record) => {
+        return <span>{record.balance}元</span>
+      },
+      search: false,
+    },
+    {
       title: '操作',
       valueType: 'option',
       key: 'option',
       render: (text, record,) => [
+        <a
+          key="addBalance"
+          onClick={() => {
+            Modal.confirm({
+              title: '充值',
+              content: <>
+              <p>确定要为该用户充值余额吗?</p>
+              <input type="number" placeholder="请输入充值金额" ref={balance}/>
+              </>,
+              onOk: async () => {
+                const res = await addBalance({ uid: record.uid, price: Number(balance.current?.value) })
+                if (res.code === 200) {
+                  message.success('充值成功');
+                  actionRef.current?.reload();
+                  return true;
+                }
+              },
+            });
+            
+          }}>
+          充值
+        </a>,
         <a
           key="editable"
           onClick={() => {

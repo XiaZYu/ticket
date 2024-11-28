@@ -55,3 +55,15 @@ export async function updateUser(body: UserInfo, options?: { [key: string]: any 
     ...(options || {}),
   });
 }
+
+/** 充值 */
+export async function addBalance(params: { uid?: string; price?: number }, options?: { [key: string]: any })
+: Promise<API.ResponseData> {
+  return request('/api/users/addBalance', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

@@ -8,5 +8,6 @@ export interface UserInfo {
   phone: number;
   email: string;
   role: string;
+  balance: number;
   token: string;
 }

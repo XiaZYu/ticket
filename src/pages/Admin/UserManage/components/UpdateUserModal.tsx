@@ -68,7 +68,6 @@ const UpdateUserModal = ({ open, onOpenChange, onFinish, userInfo }: UpdateUserM
           { label: '女', value: '女' },
         ]}
       />
-      <ProFormText.Password name="password" label="密码"  readonly/>
     </ModalForm>
   );
 }
